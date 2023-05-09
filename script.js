@@ -15,5 +15,5 @@ document.getElementById('button').addEventListener('click', function () {
 // set headers
 const headers = {
   'Content-Type': 'application/json',
-  Authorization: process.env.Token
+  Authorization: secrets.Token
 };
