@@ -43,7 +43,7 @@ app.get('/', async (req, res) => {
 
   const Token = await fetch("https://auth.accela.com/oauth2/token", requestOptions)
     .then(response => response.text())
-    .then(result => { console.log(result); return result; })
+    // .then(result => { console.log(result); return result; })
     // set token variable
     .then(result => {
       var Token = JSON.parse(result).access_token;
@@ -51,5 +51,5 @@ app.get('/', async (req, res) => {
     })
 
   res.render('index', { Token: Token });
-  // console.log(Token);
+  console.log('Serverside:' + Token);
 });
