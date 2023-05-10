@@ -4,6 +4,13 @@ document.getElementById('button').addEventListener('click',
     // set headers
     let myHeaders = new Headers();
     myHeaders.append("Authorization", Token);
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("User-Agent", "Chrome/88.0.4324.150");
+    // myHeaders.append("Host", "apis.accela.com");
+    myHeaders.append("Connection", "keep-alive");
+    myHeaders.append("Accept", "*/*");
+    myHeaders.append("Accept-Encoding", "gzip, deflate, br");
+
 
     // set options
     let requestOptions = {

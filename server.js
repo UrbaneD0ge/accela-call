@@ -2,6 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { get } from 'http';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -42,6 +43,7 @@ app.get('/', async (req, res) => {
 
   const Token = await fetch("https://auth.accela.com/oauth2/token", requestOptions)
     .then(response => response.text())
+    .then(result => { console.log(result); return result; })
     // set token variable
     .then(result => {
       var Token = JSON.parse(result).access_token;
@@ -49,16 +51,5 @@ app.get('/', async (req, res) => {
     })
 
   res.render('index', { Token: Token });
-  console.log(Token);
+  // console.log(Token);
 });
-
-function getToken() {
-  fetch("https://auth.accela.com/oauth2/token", requestOptions)
-    .then(response => response.text())
-    // set token variable
-    .then(result => {
-      var Token = JSON.parse(result).access_token;
-      return Token;
-    })
-    .catch(error => console.log('error', error));
-}
