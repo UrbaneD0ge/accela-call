@@ -2,12 +2,11 @@ import express from 'express';
 import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { get } from 'http';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const TOKEN = process.env.Token;
+dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -21,10 +20,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', async (req, res) => {
-  var myHeaders = new Headers();
+  let myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
-  var urlencoded = new URLSearchParams();
+  let urlencoded = new URLSearchParams();
   urlencoded.append("client_id", process.env.client_id);
   urlencoded.append("client_secret", process.env.client_secret);
   urlencoded.append("username", process.env.username);
@@ -34,7 +33,7 @@ app.get('/', async (req, res) => {
   urlencoded.append("grant_type", "password");
   urlencoded.append("scope", "records");
 
-  var requestOptions = {
+  let requestOptions = {
     method: 'POST',
     headers: myHeaders,
     body: urlencoded,
@@ -50,6 +49,29 @@ app.get('/', async (req, res) => {
       return Token;
     })
 
-  res.render('index', { Token: Token });
-  console.log('Serverside:' + Token);
+  // console.log(Token);
+
+  let newHeaders = new Headers();
+  newHeaders.append("Authorization", Token);
+  newHeaders.append("Content-Type", "application/json");
+  // myHeaders.append("User-Agent", "Chrome/88.0.4324.150");
+  // myHeaders.append("Host", "apis.accela.com");
+  newHeaders.append("Connection", "keep-alive");
+  newHeaders.append("Accept", "*/*");
+  newHeaders.append("Accept-Encoding", "gzip, deflate, br");
+
+  // set options
+  let newOptions = {
+    method: 'GET',
+    headers: newHeaders,
+    redirect: 'follow'
+  };
+
+  fetch("https://apis.accela.com/v4/records/", newOptions)
+    .then(response => response.text())
+    .then(result => { result.replace(/'/g, '"'); return result; })
+    // .then(result => { console.log(result); return result; })
+    .then(result => res.render('index', { result: result }))
+    .catch(error => console.error(error));
 });
+
