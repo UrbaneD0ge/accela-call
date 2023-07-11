@@ -14,7 +14,8 @@
   <div id='output' style='word-wrap: break-word;'>
     <p>Output:</p>
     <table>
-      <%= result %>
+      <% let parsed=JSON.stringify(result) %>
+        <%= parsed.replace(/\\/, '\n' ) %>
     </table>
   </div>
   <!-- <dialog id='dialog'>ByeBye World!<button onclick='document.getElementById("dialog").close()'>X</button></dialog> -->

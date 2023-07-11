@@ -69,7 +69,7 @@ app.get('/', async (req, res) => {
 
   fetch("https://apis.accela.com/v4/records/", newOptions)
     .then(response => response.text())
-    .then(result => { result.replace(/'/g, '"'); return result; })
+    // .then(result => { result.replace(/'/g, '"'); return result; })
     // .then(result => { console.log(result); return result; })
     .then(result => res.render('index', { result: result }))
     .catch(error => console.error(error));
