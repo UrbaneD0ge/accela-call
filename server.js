@@ -70,7 +70,7 @@ app.get('/test', async (req, res) => {
   fetch("https://apis.accela.com/v4/records/", newOptions)
     .then(response => response.json())
     // .then(result => { result.replace(/'/g, '"'); return result; })
-    .then(result => { console.log(result.status); return result; })
+    .then(result => { console.log(result.result); return result; })
     // if status code is not 200, show error message
     .then(result => {
       if (result.status !== 200) {

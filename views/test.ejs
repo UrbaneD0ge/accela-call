@@ -7,15 +7,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Accela Caller</title>
   <style>
-    pre {
-      overflow-x: auto;
-      white-space: pre-wrap;
-      white-space: -moz-pre-wrap;
-      white-space: -pre-wrap;
-      white-space: -o-pre-wrap;
-      word-wrap: break-word;
-    }
-
     p {
       font-size: small;
       /* line-height: .75em; */
@@ -154,7 +145,14 @@
             </td>
             <td>
               <%= record.reportedDate?.substr(0,10) %>
+                <dialog onclick='function showModal()'>
+                  <p>
+                    <%= record.reportedChannel?.value %>
+                      <%= record.reportedChannel?.text %>
+                  </p>
+                </dialog>
             </td>
+
             <td>
               <%= record.balance %>
             </td>
@@ -163,7 +161,7 @@
     </table>
   </div>
 
-  <script src="../js/index.js"></script>
+  <script src="../js/test.js"></script>
 </body>
 
 </html>
