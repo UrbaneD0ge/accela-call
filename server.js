@@ -19,6 +19,11 @@ app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(__dirname + '/public'));
 
+// route for ID
+app.get('/test/?...', (req, res) => {
+  res.render('index');
+});
+
 app.get('/test', async (req, res) => {
   let myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
@@ -70,7 +75,7 @@ app.get('/test', async (req, res) => {
   fetch("https://apis.accela.com/v4/records/", newOptions)
     .then(response => response.json())
     // .then(result => { result.replace(/'/g, '"'); return result; })
-    .then(result => { console.log(result.result); return result; })
+    .then(result => { console.log(result); return result; })
     // if status code is not 200, show error message
     .then(result => {
       if (result.status !== 200) {
@@ -89,3 +94,5 @@ app.get('/err', (req, res) => {
 app.get('/', (req, res) => {
   res.render('index');
 });
+
+// break out test routes

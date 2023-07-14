@@ -23,25 +23,19 @@
     <table border='1'>
       <thead>
         <tr>
-          <th scope="col">Name</th>
-          <th scope="col">ID</th>
+          <th scope="col">Name / ID</th>
           <th scope="col">Type</th>
           <th scope="col">Description</th>
           <th scope="col">Status</th>
-          <th scope="col">Status date</th>
           <th scope="col">Module</th>
           <th scope="col">Record Class</th>
           <th scope="col">Created By</th>
-          <th scope="col">Opened Date</th>
-          <th scope="col">Tracking ID</th>
+          <th scope="col">IDs</th>
           <th scope="col">Service Provider Code</th>
           <th scope="col">Updated Date</th>
           <th scope="col">Initiated Product</th>
-          <th scope="col">Custom ID</th>
           <th scope="col">Value</th>
-          <th scope="col">Booking</th>
-          <th scope="col">Infraction</th>
-          <th scope="col">Public Owned</th>
+          <th scope="col">Attributes</th>
           <th scope="col">Closed By Department</th>
           <th scope="col">Assigned User</th>
           <th scope="col">Job Value</th>
@@ -54,10 +48,10 @@
         <% parsed.forEach(function(record) { %>
           <tr>
             <td>
-              <%= record.name %>
-            </td>
-            <td>
-              <%= record.id %>
+              <%= record.name %><br><br>
+                <a href="https://localhost:5000/test/<%= record.id %>">
+                  <%= record.id %>
+                </a>
             </td>
             <td>
               <%#= JSON.stringify(record.type) %>
@@ -89,11 +83,10 @@
               </p>
               <p>
                 Text: <%= record.status?.text %>
+              </p><br>
+              <p>
+                <%= record.statusDate.substr(0,10) %>
               </p>
-
-            </td>
-            <td>
-              <%= record.statusDate.substr(0,10) %>
             </td>
             <td>
               <%= record.module %>
@@ -102,13 +95,13 @@
               <%= record.recordClass %>
             </td>
             <td>
-              <%= record.createdBy %>
+              <%= record.createdBy %><br><br>
+                <%= record.openedDate.substr(0,10) %>
             </td>
             <td>
-              <%= record.openedDate.substr(0,10) %>
-            </td>
-            <td>
-              <%= record.trackingId %>
+              TrackingID: <%= record.trackingId %>
+                <br><br>
+                CustomID: <%= record.customId %>
             </td>
             <td>
               <%= record.serviceProviderCode %>
@@ -120,19 +113,26 @@
               <%= record.initiatedProduct %>
             </td>
             <td>
-              <%= record.customId %>
-            </td>
-            <td>
               <%= record.value %>
             </td>
             <td>
-              <%= record.booking %>
-            </td>
-            <td>
-              <%= record.infraction %>
-            </td>
-            <td>
-              <%= record.publicOwned %>
+              <% if (record.booking=='true' ) { %>
+                <p>Booking: ✅</p>
+                <% } else { %>
+                  <p>Booking: ❌</p>
+                  <% } %>
+
+                    <% if (record.infraction=='true' ) { %>
+                      <p>Infraction: ✅</p>
+                      <% } else { %>
+                        <p>Infraction: ❌</p>
+                        <% } %>
+
+                          <% if (record.publicOwned=='true' ) { %>
+                            <p>Public Owned: ✅</p>
+                            <% } else { %>
+                              <p>Public Owned: ❌</p>
+                              <% } %>
             </td>
             <td>
               <%= record.closedByDepartment %>
@@ -152,15 +152,22 @@
                   </p>
                 </dialog>
             </td>
-
             <td>
               <%= record.balance %>
             </td>
           </tr>
           <% }) %>
     </table>
-  </div>
 
+
+  </div>
+  <footer>
+    <% if (result.page.hasmore==true ) { %>
+      <a href="http://localhost:5000">Show More</a>
+      <% } else { %>
+        <p>No More</p>
+        <% } %>
+  </footer>
   <script src="../js/test.js"></script>
 </body>
 
