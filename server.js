@@ -24,10 +24,10 @@ app.get('/test', async (req, res) => {
   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
   let urlencoded = new URLSearchParams();
-  urlencoded.append("client_id", process.env.client_id);
-  urlencoded.append("client_secret", process.env.client_secret);
-  urlencoded.append("username", process.env.username);
-  urlencoded.append("password", process.env.password);
+  urlencoded.append("client_id", process.env.CLIENT_ID);
+  urlencoded.append("client_secret", process.env.CLIENT_SECRET);
+  urlencoded.append("username", process.env.ACCELA_USER);
+  urlencoded.append("password", process.env.PASSWORD);
   urlencoded.append("agency_name", "ATLANTA_GA");
   urlencoded.append("environment", "SUPP");
   urlencoded.append("grant_type", "password");
@@ -42,14 +42,14 @@ app.get('/test', async (req, res) => {
 
   const Token = await fetch("https://auth.accela.com/oauth2/token", requestOptions)
     .then(response => response.text())
-    // .then(result => { console.log(result); return result; })
+    // .then(result => { console.log(result.status); })
     // set token variable
     .then(result => {
       var Token = JSON.parse(result).access_token;
       return Token;
     })
 
-  // console.log(Token);
+  // console.log('Token: ' + Token);
 
   let newHeaders = new Headers();
   newHeaders.append("Authorization", Token);
@@ -76,9 +76,9 @@ app.get('/test', async (req, res) => {
       if (result.status !== 200) {
         res.render('err');
         return;
-      }
+      } else { res.render(`test`, { result: result }); }
     })
-    // .then(result => res.render('index', { result: result }))
+    // .then(result => res.render('test', { result: result }))
     .catch(error => console.error(error));
 });
 

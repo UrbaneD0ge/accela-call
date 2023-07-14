@@ -4,5 +4,8 @@
     "titleBar.activeBackground": "#3B3B68",
     "titleBar.activeForeground": "#FCFCFD"
   },
-  "dotenv.enableAutocloaking": false
+  "dotenv.enableAutocloaking": false,
+  "cSpell.words": [
+    "ACCELA"
+  ]
 }
