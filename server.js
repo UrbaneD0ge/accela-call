@@ -19,11 +19,11 @@ app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(__dirname + '/public'));
 
-app.get('/', (req, res) => {
-  res.render('index');
-});
+// app.get('/', (req, res) => {
+//   res.render('index');
+// });
 
-app.get('/test', async (req, res) => {
+app.get('/', async (req, res) => {
   let myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
@@ -75,7 +75,7 @@ app.get('/test', async (req, res) => {
     .then(response => response.json())
     // .then(result => { result.replace(/'/g, '"'); return result; })
     // .then(result => { console.log(result.result[0].status); return result; })
-    .then(result => res.render('test', { result: result }))
+    .then(result => res.render('index', { result: result }))
     .catch(error => console.error(error));
 });
 
