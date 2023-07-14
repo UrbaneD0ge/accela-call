@@ -19,11 +19,7 @@ app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(__dirname + '/public'));
 
-// app.get('/', (req, res) => {
-//   res.render('index');
-// });
-
-app.get('/', async (req, res) => {
+app.get('/test', async (req, res) => {
   let myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
@@ -74,8 +70,22 @@ app.get('/', async (req, res) => {
   fetch("https://apis.accela.com/v4/records/", newOptions)
     .then(response => response.json())
     // .then(result => { result.replace(/'/g, '"'); return result; })
-    .then(result => { console.log(result); return result; })
-    .then(result => res.render('index', { result: result }))
+    .then(result => { console.log(result.status); return result; })
+    // if status code is not 200, show error message
+    .then(result => {
+      if (result.status !== 200) {
+        res.render('err');
+        return;
+      }
+    })
+    // .then(result => res.render('index', { result: result }))
     .catch(error => console.error(error));
 });
 
+app.get('/err', (req, res) => {
+  res.render('err');
+});
+
+app.get('/', (req, res) => {
+  res.render('index');
+});

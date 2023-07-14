@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accela Caller</title>
+  <style>
+    pre {
+      overflow-x: auto;
+      white-space: pre-wrap;
+      white-space: -moz-pre-wrap;
+      white-space: -pre-wrap;
+      white-space: -o-pre-wrap;
+      word-wrap: break-word;
+    }
+
+    p {
+      font-size: small;
+      /* line-height: .75em; */
+      margin: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Accela Caller test</h1>
+  <!-- <button id='button' type='submit' onClick='getRecords()'>Do the Thing!</button> -->
+  <div id='output' style='word-wrap: break-word;'>
+    <p>Output:</p>
+    <table border='1'>
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">ID</th>
+          <th scope="col">Type</th>
+          <th scope="col">Description</th>
+          <th scope="col">Status</th>
+          <th scope="col">Status date</th>
+          <th scope="col">Module</th>
+          <th scope="col">Record Class</th>
+          <th scope="col">Created By</th>
+          <th scope="col">Opened Date</th>
+          <th scope="col">Tracking ID</th>
+          <th scope="col">Service Provider Code</th>
+          <th scope="col">Updated Date</th>
+          <th scope="col">Initiated Product</th>
+          <th scope="col">Custom ID</th>
+          <th scope="col">Value</th>
+          <th scope="col">Booking</th>
+          <th scope="col">Infraction</th>
+          <th scope="col">Public Owned</th>
+          <th scope="col">Closed By Department</th>
+          <th scope="col">Assigned User</th>
+          <th scope="col">Job Value</th>
+          <th scope="col">Reported Date</th>
+          <th scope="col">Balance</th>
+        </tr>
+      </thead>
+      <!-- unpack the array of objects -->
+      <% let parsed=result.result %>
+        <% parsed.forEach(function(record) { %>
+          <tr>
+            <td>
+              <%= record.name %>
+            </td>
+            <td>
+              <%= record.id %>
+            </td>
+            <td>
+              <%#= JSON.stringify(record.type) %>
+                <p>Module: <%= record.type.module %>
+                </p>
+                <p>Value: <%= record.type.value %>
+                </p>
+                <p>Type: <%= record.type.type %>
+                </p>
+                <p>Text: <%= record.type.text %>
+                </p>
+                <p>Group: <%= record.type.group %>
+                </p>
+                <p>Alias: <%= record.type.alias %>
+                </p>
+                <p>Alias: <%= record.type.subType %>
+                </p>
+                <p>Alias: <%= record.type.category %>
+                </p>
+                <p>Alias: <%= record.type.id %>
+                </p>
+            </td>
+            <td>
+              <%= record.description %>
+            </td>
+            <td>
+              <p>
+                Value: <%= record.status?.value %>
+              </p>
+              <p>
+                Text: <%= record.status?.text %>
+              </p>
+
+            </td>
+            <td>
+              <%= record.statusDate.substr(0,10) %>
+            </td>
+            <td>
+              <%= record.module %>
+            </td>
+            <td>
+              <%= record.recordClass %>
+            </td>
+            <td>
+              <%= record.createdBy %>
+            </td>
+            <td>
+              <%= record.openedDate.substr(0,10) %>
+            </td>
+            <td>
+              <%= record.trackingId %>
+            </td>
+            <td>
+              <%= record.serviceProviderCode %>
+            </td>
+            <td>
+              <%= record.updateDate.substr(0,10) %>
+            </td>
+            <td>
+              <%= record.initiatedProduct %>
+            </td>
+            <td>
+              <%= record.customId %>
+            </td>
+            <td>
+              <%= record.value %>
+            </td>
+            <td>
+              <%= record.booking %>
+            </td>
+            <td>
+              <%= record.infraction %>
+            </td>
+            <td>
+              <%= record.publicOwned %>
+            </td>
+            <td>
+              <%= record.closedByDepartment %>
+            </td>
+            <td>
+              <%= record.assignedUser %>
+            </td>
+            <td>
+              <%= record.jobValue %>
+            </td>
+            <td>
+              <%= record.reportedDate?.substr(0,10) %>
+            </td>
+            <td>
+              <%= record.balance %>
+            </td>
+          </tr>
+          <% }) %>
+    </table>
+  </div>
+
+  <script src="../js/index.js"></script>
+</body>
+
+</html>
