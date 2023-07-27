@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Address</title>
+</head>
+
+<body>
+  <h1>Hello Kippo!</h1>
+  <% result.forEach(function(record) { %>
+    <p>ID:
+      <%= record.id %>
+    </p>
+    <p>Address: <br>
+      <%= record.streetStart %>
+        <%= record.streetName %>
+          <%= record.streetSuffix.text %>
+            <%= record.streetSuffixDirection.text %>
+              <br>
+              <%= record.city %>, <%= record.state.text %>
+                  <%= record.postalCode %>
+    </p>
+    <% }) %>
+</body>
+
+</html>
